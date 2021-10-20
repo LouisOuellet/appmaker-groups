@@ -1,0 +1,144 @@
+{
+    "groups": [
+        {
+            "id": 1,
+            "created": "2020-11-17 08:47:42",
+            "modified": "2020-11-17 08:48:01",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Administration",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 2,
+            "created": "2020-11-17 08:47:42",
+            "modified": "2020-11-17 08:48:01",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Development",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 3,
+            "created": "2020-11-17 08:47:42",
+            "modified": "2020-11-17 08:48:01",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Users",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 4,
+            "created": "2020-11-17 08:47:42",
+            "modified": "2020-11-17 08:48:01",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Marketers",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 5,
+            "created": "2020-11-17 08:47:42",
+            "modified": "2021-03-16 09:28:44",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Marketer Managers",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 6,
+            "created": "2021-03-16 09:28:35",
+            "modified": "2021-03-16 09:28:35",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Consultants",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 7,
+            "created": "2021-03-16 09:29:08",
+            "modified": "2021-03-16 09:29:08",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Consultant Managers",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 8,
+            "created": "2021-03-17 13:55:24",
+            "modified": "2021-03-17 13:55:24",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Customs Managers",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 9,
+            "created": "2021-03-17 13:55:33",
+            "modified": "2021-03-17 13:55:33",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Customs Clerk",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 10,
+            "created": "2021-03-17 13:55:43",
+            "modified": "2021-03-17 13:55:43",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Customs Specialists",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 11,
+            "created": "2021-03-17 14:07:52",
+            "modified": "2021-03-17 14:07:52",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Clients",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 12,
+            "created": "2021-03-19 07:55:09",
+            "modified": "2021-03-19 07:55:09",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "Clients Managers",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 13,
+            "created": "2021-04-22 08:52:51",
+            "modified": "2021-04-22 08:52:51",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "TransportMGR",
+            "type": "MySQL",
+            "location": null
+        },
+        {
+            "id": 14,
+            "created": "2021-04-22 08:53:05",
+            "modified": "2021-04-22 08:53:05",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "TransportCoordinator",
+            "type": "MySQL",
+            "location": null
+        }
+    ]
+}
