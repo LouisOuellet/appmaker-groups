@@ -65,34 +65,30 @@ class groupsAPI extends CRUDAPI {
 					'relationship_2' => $data['relationship']['relationship'],
 					'link_to_2' => $data['relationship']['link_to'],
 				];
-				$id = $this->Auth->create('relationships',$new);
+				$rel = $this->createRelationship($new);
 				$relation = $this->Auth->read($data['relationship']['relationship'],$data['relationship']['link_to']);
 				if($relation != null){
 					$relation = $relation->all()[0];
-					$rel = $this->Auth->read('relationships',$id);
-					if($rel != null){
-						$rel = $rel->all()[0];
-						$rel = $this->convertToDOM($rel);
-						// Return
-						$return = [
-							"success" => $this->Language->Field["Record successfully updated"],
-							"request" => $request,
-							"data" => $data,
-							"output" => [
+					$rel = $this->convertToDOM($rel);
+					// Return
+					$return = [
+						"success" => $this->Language->Field["Record successfully updated"],
+						"request" => $request,
+						"data" => $data,
+						"output" => [
+							'relationship' => $data['relationship']['relationship'],
+							'id' => $data['relationship']['link_to'],
+							'dom' => $this->convertToDOM($relation),
+							'raw' => $relation,
+							'timeline' => [
 								'relationship' => $data['relationship']['relationship'],
-								'id' => $data['relationship']['link_to'],
-								'dom' => $this->convertToDOM($relation),
-								'raw' => $relation,
-								'timeline' => [
-									'relationship' => $data['relationship']['relationship'],
-									'link_to' => $data['relationship']['link_to'],
-									'created' => $rel['created'],
-									'owner' => $rel['owner'],
-								],
+								'link_to' => $data['relationship']['link_to'],
+								'created' => $rel['created'],
+								'owner' => $rel['owner'],
 							],
-						];
-						if(isset($new['relationship_3'],$new['link_to_3'])){ $return['output']['timeline'][$new['relationship_3']] = $new['link_to_3']; }
-					}
+						],
+					];
+					if(isset($new['relationship_3'],$new['link_to_3'])){ $return['output']['timeline'][$new['relationship_3']] = $new['link_to_3']; }
 				}
 			}
 			return $return;
