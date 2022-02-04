@@ -1,4 +1,4 @@
-API.Plugins.groups = {
+Engine.Plugins.groups = {
 	element:{
 		table:{
 			index:{},
@@ -24,19 +24,19 @@ API.Plugins.groups = {
 		},
 	},
 	init:function(){
-		API.GUI.Sidebar.Nav.add('Groups', 'administration');
+		Engine.GUI.Sidebar.Nav.add('Groups', 'administration');
 	},
 	load:{
 		index:function(){
-			API.Builder.card($('#pagecontent'),{ title: 'Groups', icon: 'groups'}, function(card){
-				API.request('groups','read',{
+			Engine.Builder.card($('#pagecontent'),{ title: 'Groups', icon: 'groups'}, function(card){
+				Engine.request('groups','read',{
 					data:{options:{ link_to:'GroupsIndex',plugin:'groups',view:'index' }},
 				},function(result){
 					var dataset = JSON.parse(result);
 					if(dataset.success != undefined){
-						for(const [key, value] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','groups',value.name],value); }
-						for(const [key, value] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','groups',value.id],value); }
-						API.Builder.table(card.children('.card-body'), dataset.output.dom, {
+						for(const [key, value] of Object.entries(dataset.output.dom)){ Engine.Helper.set(Engine.Contents,['data','dom','groups',value.name],value); }
+						for(const [key, value] of Object.entries(dataset.output.raw)){ Engine.Helper.set(Engine.Contents,['data','raw','groups',value.id],value); }
+						Engine.Builder.table(card.children('.card-body'), dataset.output.dom, {
 							headers:dataset.output.headers,
 							id:'GroupsIndex',
 							modal:true,
@@ -48,7 +48,7 @@ API.Plugins.groups = {
 							clickable:{ enable:true, view:'details'},
 							controls:{ toolbar:true},
 						},function(response){
-							API.Plugins.groups.element.table.index = response.table;
+							Engine.Plugins.groups.element.table.index = response.table;
 							response.table.find('button[data-control="Edit"]').each(function(){
 								var btn = $(this);
 								var data = response.datatable.row($(this).parents('tr')).data();
@@ -74,15 +74,15 @@ API.Plugins.groups = {
 				var thisModal = container.parent('.modal-body').parent().parent().parent();
 			}
 			// Fetch Information
-			API.request(url.searchParams.get("p"),'get',{data:{id:id,key:'name'}},function(result){
+			Engine.request(url.searchParams.get("p"),'get',{data:{id:id,key:'name'}},function(result){
 				var dataset = JSON.parse(result);
 				if(dataset.success != undefined){
 					container.attr('data-id',dataset.output.organization.raw.id);
-					API.GUI.insert(dataset.output.organization.dom);
+					Engine.GUI.insert(dataset.output.organization.dom);
 					var users = [];
-					if(!API.Helper.isSet(dataset.output.details,['users','dom'])){ dataset.output.details.users = {dom:[],raw:[]}; }
+					if(!Engine.Helper.isSet(dataset.output.details,['users','dom'])){ dataset.output.details.users = {dom:[],raw:[]}; }
 					for(var [id, user] of Object.entries(dataset.output.details.users.dom)){ users.push(user); }
-					API.Builder.table(membersCTN, users, {
+					Engine.Builder.table(membersCTN, users, {
 						headers:['username'],
 						id:'groupsMembersTable',
 						modal:true,
@@ -111,10 +111,10 @@ API.Plugins.groups = {
 							add:[
 								{
 									menu:'file',
-									text:'<i class="icon icon-assign mr-1"></i>'+API.Contents.Language['Add'],
+									text:'<i class="icon icon-assign mr-1"></i>'+Engine.Contents.Language['Add'],
 									name:'add',
 									action:function(){
-										API.Builder.modal($('body'), {
+										Engine.Builder.modal($('body'), {
 											title:'Add',
 											icon:'assign',
 											zindex:'top',
@@ -125,17 +125,17 @@ API.Plugins.groups = {
 											modal.find('.modal-header').find('.btn-group').find('[data-control="update"]').remove();
 											var body = modal.find('.modal-body');
 											var footer = modal.find('.modal-footer');
-											API.Builder.input(body, 'user', null,function(input){});
+											Engine.Builder.input(body, 'user', null,function(input){});
 											footer.append('<a class="btn btn-success text-light"><i class="icon icon-assign mr-1"></i>Add</a>');
 											footer.find('a').click(function(){
 												group = {};
 												for(var [key, value] of Object.entries(dataset.output.organization.raw)){ group[key] = value; }
 												group.relationship = {relationship:'users',link_to:body.find("select").select2("val")}
-												API.request(url.searchParams.get("p"),'link',{data:group,},function(result){
+												Engine.request(url.searchParams.get("p"),'link',{data:group,},function(result){
 													var data = JSON.parse(result);
 													if(data.success != undefined){
-														API.Plugins.groups.element.table.members.DataTable().row.add({username:data.output.dom.username}).draw(false).node().id = data.output.dom;
-														API.Plugins.groups.Events.unlink(membersCTN,dataset.output.organization.raw);
+														Engine.Plugins.groups.element.table.members.DataTable().row.add({username:data.output.dom.username}).draw(false).node().id = data.output.dom;
+														Engine.Plugins.groups.Events.unlink(membersCTN,dataset.output.organization.raw);
 													}
 												});
 												modal.modal('hide');
@@ -147,7 +147,7 @@ API.Plugins.groups = {
 							],
 						},
 					},function(table){
-						API.Plugins.groups.Events.unlink(membersCTN, dataset.output.organization.raw);
+						Engine.Plugins.groups.Events.unlink(membersCTN, dataset.output.organization.raw);
 					});
 				}
 			});
@@ -164,7 +164,7 @@ API.Plugins.groups = {
 				if(btn.length > 0){
 					var user = table.DataTable().row(tr).data();
 					btn.off().click(function(){
-						API.Builder.modal($('body'), {
+						Engine.Builder.modal($('body'), {
 							title:'Unlink',
 							icon:'unlink',
 							zindex:'top',
@@ -180,7 +180,7 @@ API.Plugins.groups = {
 							footer.find('a').click(function(){
 								group.relationship = {relationship:'users',link_to:user.id};
 								console.log({group:group,user:user});
-								API.request(url.searchParams.get("p"),'unlink',{data:group},function(result){
+								Engine.request(url.searchParams.get("p"),'unlink',{data:group},function(result){
 									var data = JSON.parse(result);
 									if(data.success != undefined){ table.DataTable().row(tr).remove().draw(false); }
 								});
@@ -195,4 +195,4 @@ API.Plugins.groups = {
 	},
 }
 
-API.Plugins.groups.init();
+Engine.Plugins.groups.init();
